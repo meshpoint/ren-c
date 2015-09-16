@@ -312,6 +312,7 @@ enum encoding_opts {
 	ENC_OPT_UTF32,		// UTF-32
 	ENC_OPT_BOM,		// byte order marker
 	ENC_OPT_CRLF,		// CR line termination
+	ENC_OPT_UNISRC,		// source is UCS2
 	ENC_OPT_MAX
 };
 
