@@ -1239,7 +1239,7 @@ extern int Do_Callback(REBSER *obj, u32 name, RXIARG *args, RXIARG *result);
 	return Length_As_UTF8(
 		p,
 		len,
-		(uni ? FLAGIT(ENC_OPT_UNISRC) : 0) | (ccr ? FLAGIT(ENC_OPT_CRLF) : 0)
+		(uni ? FLAGIT(OPT_ENC_UNISRC) : 0) | (ccr ? FLAGIT(OPT_ENC_CRLF) : 0)
 	);
 }
 
@@ -1276,7 +1276,7 @@ extern int Do_Callback(REBSER *obj, u32 name, RXIARG *args, RXIARG *result);
 		max,
 		src,
 		len,
-		(uni ? FLAGIT(ENC_OPT_UNISRC) : 0) | (ccr ? FLAGIT(ENC_OPT_CRLF) : 0)
+		(uni ? FLAGIT(OPT_ENC_UNISRC) : 0) | (ccr ? FLAGIT(OPT_ENC_CRLF) : 0)
 	);
 }
 

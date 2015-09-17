@@ -983,8 +983,8 @@ ConversionResult ConvertUTF8toUTF32 (
 {
 	REBCNT size = 0;
 	REBCNT c;
-	REBOOL uni = GET_FLAG(opts, ENC_OPT_UNISRC);
-	REBOOL ccr = GET_FLAG(opts, ENC_OPT_CRLF);
+	REBOOL uni = GET_FLAG(opts, OPT_ENC_UNISRC);
+	REBOOL ccr = GET_FLAG(opts, OPT_ENC_CRLF);
 	const REBYTE *bp = uni ? NULL : cast(const REBYTE *, p);
 	const REBUNI *up = uni ? cast(const REBUNI *, p) : NULL;
 
@@ -1048,7 +1048,7 @@ ConversionResult ConvertUTF8toUTF32 (
 /*
 **		Encode the unicode into UTF8 byte string.
 **
-**		Source string can be byte or unichar sized (ENC_OPT_UNISRC);
+**		Source string can be byte or unichar sized (OPT_ENC_UNISRC);
 **		Max is the maximum size of the result (UTF8).
 **		Returns number of dst bytes used.
 **		Updates len for source chars used.
@@ -1063,8 +1063,8 @@ ConversionResult ConvertUTF8toUTF32 (
 	const REBYTE *bp = cast(const REBYTE*, src);
 	const REBUNI *up = cast(const REBUNI*, src);
 	REBCNT cnt;
-	REBOOL uni = GET_FLAG(opts, ENC_OPT_UNISRC);
-	REBOOL ccr = GET_FLAG(opts, ENC_OPT_CRLF);
+	REBOOL uni = GET_FLAG(opts, OPT_ENC_UNISRC);
+	REBOOL ccr = GET_FLAG(opts, OPT_ENC_CRLF);
 
 	if (len) cnt = *len;
 	else cnt = uni ? Strlen_Uni(up) : LEN_BYTES(bp);
@@ -1172,7 +1172,7 @@ ConversionResult ConvertUTF8toUTF32 (
 {
 	assert(ANY_STR(value));
 
-	if (!GET_FLAG(opts, ENC_OPT_CRLF) && VAL_STR_IS_ASCII(value)) {
+	if (!GET_FLAG(opts, OPT_ENC_CRLF) && VAL_STR_IS_ASCII(value)) {
 		// We can copy a one-byte-per-character series if it doesn't contain
 		// codepoints like 128 - 255 (pure ASCII is valid UTF-8)
 		return Copy_Bytes(VAL_BIN_DATA(value), len);
@@ -1180,11 +1180,11 @@ ConversionResult ConvertUTF8toUTF32 (
 	else {
 		const void *data;
 		if (VAL_BYTE_SIZE(value)) {
-			CLR_FLAG(opts, ENC_OPT_UNISRC);
+			CLR_FLAG(opts, OPT_ENC_UNISRC);
 			data = VAL_BIN_DATA(value);
 		}
 		else {
-			SET_FLAG(opts, ENC_OPT_UNISRC);
+			SET_FLAG(opts, OPT_ENC_UNISRC);
 			data = VAL_UNI_DATA(value);
 		}
 		return Make_UTF8_Binary(data, len, 0, opts);

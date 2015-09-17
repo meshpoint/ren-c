@@ -114,7 +114,7 @@ static REBREQ *Req_SIO;
 	const REBUNI *up = uni ? cast(const REBUNI *, p) : NULL;
 	REBFLG encopts = ENCF_OS_CRLF;
 
-	if (uni) SET_FLAG(encopts, ENC_OPT_UNISRC);
+	if (uni) SET_FLAG(encopts, OPT_ENC_UNISRC);
 
 	if (!p) panic Error_0(RE_NO_PRINT_PTR);
 
@@ -297,7 +297,7 @@ static REBREQ *Req_SIO;
 **
 ***********************************************************************/
 {
-	const REBFLG encopts = FLAGIT(ENC_OPT_UNISRC) | ENCF_OS_CRLF;
+	const REBFLG encopts = FLAGIT(OPT_ENC_UNISRC) | ENCF_OS_CRLF;
 	REBCNT ul;
 	REBCNT bl;
 	REBYTE buf[1024];
@@ -819,7 +819,7 @@ mold_value:
 			if (pad != 1 && l > pad) l = pad;
 
 			ul = SERIES_LEN(ser);
-			l = Encode_UTF8(bp, l, UNI_HEAD(ser), &ul, FLAGIT(ENC_OPT_UNISRC));
+			l = Encode_UTF8(bp, l, UNI_HEAD(ser), &ul, FLAGIT(OPT_ENC_UNISRC));
 			len += l;
 
 			// Filter out CTRL chars:
