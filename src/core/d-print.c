@@ -138,7 +138,6 @@ static REBREQ *Req_SIO;
 			&len2,
 			encopts
 		);
-		if (len2 == 0) break;
 
 		if (uni) up += len2; else bp += len2;
 		len -= len2;
